@@ -3,6 +3,7 @@ from backend.layer1 import l1_collect
 from backend.l1_viz import frame_viz, make_gif
 from backend.to_FLOW import w_FLOW
 from backend.from_FLOW import readFLOW
+from layer_2 import getPlot
 import os
 
 i_song = "pop out"
@@ -35,6 +36,7 @@ if __name__ == '__main__':
     frames = l1_collect(audio_data)
     w_FLOW("backend/unit", frames)  # Save the data to a .FLOW file
     readFLOW("backend/unit.FLOW")
-
-    #frame_viz(frames)
-    #make_gif(img_dir, "backend/l1_img.gif", 10)     # 10 FPS - only change for debug
+    plt = getPlot()
+    
+    frame_viz(frames, plt)
+    make_gif(img_dir, "backend/l1_img.gif", 10)     # 10 FPS - only change for debug

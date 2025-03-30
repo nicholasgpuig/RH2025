@@ -6,7 +6,7 @@ import math
 import numpy as np
 
 
-def frame_viz(frames):
+def frame_viz(frames, plt):
     # Canvas dimensions
     width, height = 250, 250
 
@@ -16,12 +16,16 @@ def frame_viz(frames):
 
     cnt = 0
     for frame in frames:
+        plt.savefig(f"test.png{cnt}", format="png", dpi=100)
+        image_surface = cairo.ImageSurface.create_from_png(f"test.png{cnt}")
+        pattern = cairo.SurfacePattern(image_surface)
+        pattern.set_extend(cairo.EXTEND_REPEAT)
         # draw background
-        gradient = cairo.LinearGradient(0, 0, 0, height)
-        gradient.add_color_stop_rgb(0, 0, 0.7, 0.6)  # Top teal
-        gradient.add_color_stop_rgb(1, 0, 0.4, 0.7)  # Bottom blue
+        # gradient = cairo.LinearGradient(0, 0, 0, height)
+        # gradient.add_color_stop_rgb(0, 0, 0.7, 0.6)  # Top teal
+        # gradient.add_color_stop_rgb(1, 0, 0.4, 0.7)  # Bottom blue
+        context.set_source(pattern)
         context.rectangle(0, 0, width, height)
-        context.set_source(gradient)
         context.fill()
 
         ' CURVE PEAK WIDTH '
