@@ -13,10 +13,17 @@ def w_FLOW(filename, frames):
             file.write(f"Frame {u}:\n")
             points = [sample.points for sample in frame.samples]
             combined_array = np.concatenate(points, axis=0)
-            file.write(f"  Samples(len = {len(combined_array)}): ")
+            #file.write(f"  Samples: ")
             # write all samples to file
+            #file.write(f"[")
+            #rr = 1
             #for pair in combined_array:
-                #file.write(f"{pair}, ")
+            #    if rr == len(combined_array):
+            #        file.write(f"{pair}")
+            #    else:
+            #        file.write(f"{pair}, ")
+            #    rr += 1
+            #file.write(f"]")
             file.write(f"\n  Amplitude: {frame.amplitude}\n")
             file.write(f"  Left/Right: {frame.left_right}\n")
             file.write(f"  Inc/Dec: {frame.inc_dec}\n")
@@ -27,20 +34,3 @@ def w_FLOW(filename, frames):
             file.write(f"  Frame Slope: {frame.frame_slope}\n")
             file.write("\n")
             u += 1
-
-def r_FLOW(filename):
-    frames = []
-    with open(filename, 'r') as file:
-        lines = file.readlines()
-        num_frames = int(lines[1].split(": ")[1])
-        for i in range(num_frames):
-            frame_data = {}
-            frame_lines = lines[3 + i * 10: 3 + (i + 1) * 10]
-            for line in frame_lines:
-                key, value = line.split(": ")
-                if key == "Samples(len = ":
-                    value = int(value[:-2])
-                else:
-                    value = float(value)
-                frame_data[key] = value
-            frames.append(frame_data)

@@ -40,7 +40,7 @@ if __name__ == '__main__':
 
     frames = l1_collect(audio_data)
     w_FLOW("backend/unit", frames)  # Save the data to a .FLOW file
-    readFLOW("backend/unit.FLOW")
+    newframes = readFLOW("backend/unit.FLOW", True)
 
     tags = get_top_tags(i_song, i_artist)
     colors = client(i_song, i_artist)
@@ -57,5 +57,5 @@ if __name__ == '__main__':
 
     print(rgb_colors)
 
-    frame_viz(frames, rgb_colors)
+    frame_viz(newframes, rgb_colors)
     make_gif(img_dir, "backend/l1_img.gif", 10)     # 10 FPS - only change for debug

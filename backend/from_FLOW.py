@@ -3,7 +3,11 @@ import numpy as np
 from scipy.io.wavfile import write
 from pydub import AudioSegment
 
-def readFLOW(filename):
+class Frame:
+    def __init__(self, samples):
+        self.samples = samples
+
+def readFLOW(filename, convert):
     # File path
     #file_path = "backend/unit.FLOW"
     file_path = filename
@@ -19,6 +23,7 @@ def readFLOW(filename):
 
     # Variables to hold frame data
     frame_data = {}
+    frames = []
 
     # Loop through each line
     for line in lines:
@@ -60,7 +65,23 @@ def readFLOW(filename):
     amplitude = []
     f_slope = []
     time_0 = []
+
+    b_output = []
+
     for frame in frames_data[1:]:  # Show first 5 frames for testing
+        uframe = Frame(0) # NULL
+        
+        # INIT ACTUALLY IMPORTANT DATA
+        setattr(uframe, 'count_per_frame', frame['Count per Frame'])
+        setattr(uframe, 'frame_slope', frame['Frame Slope'])
+        setattr(uframe, 'amplitude', frame['Amplitude'])
+        setattr(uframe, 'left_right', frame['Left/Right'])
+        setattr(uframe, 'inc_dec', frame['Inc/Dec'])
+        setattr(uframe, 'times_0', frame['Times 0'])
+        setattr(uframe, 'flat_spike', frame['Flat/Spike'])
+        setattr(uframe, 'slope', frame['Slope'])
+        frames.append(uframe)
+
         # add min, mult by max, add min
         sc_amp = frame['Amplitude'] * 32767
         amplitude.append(sc_amp)
@@ -75,15 +96,18 @@ def readFLOW(filename):
     print("Number of amps:", len(output_amp))   
     #print(amplitude)         
 
-    sample_rate = 8000
+    if convert:
+        sample_rate = 8000
 
-    # Save as a WAV file
-    wav_file_path = "output_waveform.wav"
-    write(wav_file_path, sample_rate, np.int16(output_amp))
+        # Save as a WAV file
+        wav_file_path = "screams_of_the_damned.wav"
+        write(wav_file_path, sample_rate, np.int16(output_amp))
 
-    # Convert WAV to MP3
-    mp3_file_path = "output_waveform.mp3"
-    audio = AudioSegment.from_wav(wav_file_path)
-    audio.export(mp3_file_path, format="mp3")
+        # Convert WAV to MP3
+        mp3_file_path = "screams_of_the_damned.mp3"
+        audio = AudioSegment.from_wav(wav_file_path)
+        audio.export(mp3_file_path, format="mp3")
 
-    print(f"MP3 file saved as '{mp3_file_path}'!")
+        print(f"MP3 file saved as '{mp3_file_path}'!")
+
+    return frames
