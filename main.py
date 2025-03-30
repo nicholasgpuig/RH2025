@@ -1,17 +1,13 @@
 from backend.mp3_convert import change_sample_rate, decode_output, getYouTube
 from backend.layer1 import l1_collect
-from backend.l1_viz import frame_viz, make_gif
+from backend.l1_viz import frame_viz, make_gif, from_gif
 from backend.to_FLOW import w_FLOW
 from backend.from_FLOW import readFLOW
-<<<<<<< HEAD
-from layer_2 import getPlot
-=======
 from layer_2 import get_top_tags, client
->>>>>>> 422631397da581b70082ffb415e46a3506a53077
 import os
 
-i_song = "pink diamond"
-i_artist = "charli xcx"
+i_song = "you suffer"
+i_artist = "napalm death"
 
 # Function to convert hex to RGB
 def hex_to_rgb(hex_color):
@@ -44,16 +40,7 @@ if __name__ == '__main__':
 
     frames = l1_collect(audio_data)
     w_FLOW("backend/unit", frames)  # Save the data to a .FLOW file
-<<<<<<< HEAD
-    readFLOW("backend/unit.FLOW")
-<<<<<<< HEAD
-    plt = getPlot()
-    
-    frame_viz(frames, plt)
-=======
-=======
     newframes = readFLOW("backend/unit.FLOW", True)
->>>>>>> 89d456a785ff3eae155229e925b7aaf34986f5b6
 
     tags = get_top_tags(i_song, i_artist)
     colors = client(i_song, i_artist)
@@ -70,10 +57,8 @@ if __name__ == '__main__':
 
     print(rgb_colors)
 
-<<<<<<< HEAD
     frame_viz(frames, rgb_colors)
->>>>>>> 422631397da581b70082ffb415e46a3506a53077
-=======
-    frame_viz(newframes, rgb_colors)
->>>>>>> 89d456a785ff3eae155229e925b7aaf34986f5b6
     make_gif(img_dir, "backend/l1_img.gif", 10)     # 10 FPS - only change for debug
+
+    # get mp3 from gif
+    from_gif(frames, "backend/l1_img.gif", 10)
