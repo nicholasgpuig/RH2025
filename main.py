@@ -44,12 +44,16 @@ if __name__ == '__main__':
 
     frames = l1_collect(audio_data)
     w_FLOW("backend/unit", frames)  # Save the data to a .FLOW file
+<<<<<<< HEAD
     readFLOW("backend/unit.FLOW")
 <<<<<<< HEAD
     plt = getPlot()
     
     frame_viz(frames, plt)
 =======
+=======
+    newframes = readFLOW("backend/unit.FLOW", True)
+>>>>>>> 89d456a785ff3eae155229e925b7aaf34986f5b6
 
     tags = get_top_tags(i_song, i_artist)
     colors = client(i_song, i_artist)
@@ -66,6 +70,10 @@ if __name__ == '__main__':
 
     print(rgb_colors)
 
+<<<<<<< HEAD
     frame_viz(frames, rgb_colors)
 >>>>>>> 422631397da581b70082ffb415e46a3506a53077
+=======
+    frame_viz(newframes, rgb_colors)
+>>>>>>> 89d456a785ff3eae155229e925b7aaf34986f5b6
     make_gif(img_dir, "backend/l1_img.gif", 10)     # 10 FPS - only change for debug
