@@ -67,7 +67,7 @@ def readFLOW(filename):
         f_slope.append(frame['Frame Slope'])
         time_0.append(frame['Times 0'])
         tsc = frame['Times 0'] * 40
-        chunks = int(800/tsc)
+        chunks = int(800/(tsc+1))
         for i in range(chunks):
             unit = sc_amp
             for j in range(int(tsc)):

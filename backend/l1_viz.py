@@ -4,9 +4,9 @@ from PIL import Image
 import random
 import math
 import numpy as np
+#import cairosvg
 
-
-def frame_viz(frames):
+def frame_viz(frames, coors):
     # Canvas dimensions
     width, height = 250, 250
 
@@ -16,10 +16,15 @@ def frame_viz(frames):
 
     cnt = 0
     for frame in frames:
-        # draw background
+        # Create the gradient
         gradient = cairo.LinearGradient(0, 0, 0, height)
-        gradient.add_color_stop_rgb(0, 0, 0.7, 0.6)  # Top teal
-        gradient.add_color_stop_rgb(1, 0, 0.4, 0.7)  # Bottom blue
+
+        # Add color stops for the 3 colors
+        gradient.add_color_stop_rgb(random.uniform(0, 0.33), coors[0][0], coors[0][1], coors[0][2])  # First color (top)
+        gradient.add_color_stop_rgb(random.uniform(0.33, 0.66), coors[1][0], coors[1][1], coors[1][2])  # Second color (middle)
+        gradient.add_color_stop_rgb(random.uniform(0.66, 1), coors[2][0], coors[2][1], coors[2][2])  # Third color (bottom)
+
+        # Apply the gradient to the context and fill the rectangle
         context.rectangle(0, 0, width, height)
         context.set_source(gradient)
         context.fill()

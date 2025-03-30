@@ -68,7 +68,7 @@ def l1_collect(audio_data):
         setattr(frame, 'flat_spike', max([sample.flat_spike for sample in frame.samples]))
         setattr(frame, 'slope', max([sample.slope for sample in frame.samples]))
 
-    plots(frames)
+    #plots(frames)
 
     # Normalize the data for each frame
     for frame in frames:
