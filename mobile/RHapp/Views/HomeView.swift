@@ -43,6 +43,7 @@ struct HomeView: View {
                 ToolbarItem(placement: .principal) {
                     Text("App Name")
                         .font(Font.custom("Inter", size: 25).weight(.bold))
+                        .foregroundStyle(.white)
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
