@@ -2,10 +2,11 @@ from backend.mp3_convert import change_sample_rate, decode_output, getYouTube
 from backend.layer1 import l1_collect
 from backend.l1_viz import frame_viz, make_gif
 from backend.to_FLOW import w_FLOW
+from backend.from_FLOW import readFLOW
 import os
 
-i_song = "say it"
-i_artist = "2hollis"
+i_song = "pop out"
+i_artist = "playboi carti"
 
 if __name__ == '__main__':
     #input_mp3_file = 'backend/input4.mp3'  
@@ -32,7 +33,8 @@ if __name__ == '__main__':
     audio_data = decode_output(output_file)
 
     frames = l1_collect(audio_data)
-    w_FLOW("test_outy", frames)  # Save the data to a .FLOW file
+    w_FLOW("backend/unit", frames)  # Save the data to a .FLOW file
+    readFLOW("backend/unit.FLOW")
 
-    frame_viz(frames)
-    make_gif(img_dir, "backend/l1_img.gif", 10)     # 10 FPS - only change for debug
+    #frame_viz(frames)
+    #make_gif(img_dir, "backend/l1_img.gif", 10)     # 10 FPS - only change for debug
