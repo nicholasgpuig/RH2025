@@ -3,11 +3,20 @@ from backend.layer1 import l1_collect
 from backend.l1_viz import frame_viz, make_gif
 from backend.to_FLOW import w_FLOW
 from backend.from_FLOW import readFLOW
+<<<<<<< HEAD
 from layer_2 import getPlot
+=======
+from layer_2 import get_top_tags, client
+>>>>>>> 422631397da581b70082ffb415e46a3506a53077
 import os
 
-i_song = "pop out"
-i_artist = "playboi carti"
+i_song = "pink diamond"
+i_artist = "charli xcx"
+
+# Function to convert hex to RGB
+def hex_to_rgb(hex_color):
+    hex_color = hex_color.lstrip('#')
+    return tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
 
 if __name__ == '__main__':
     #input_mp3_file = 'backend/input4.mp3'  
@@ -36,7 +45,27 @@ if __name__ == '__main__':
     frames = l1_collect(audio_data)
     w_FLOW("backend/unit", frames)  # Save the data to a .FLOW file
     readFLOW("backend/unit.FLOW")
+<<<<<<< HEAD
     plt = getPlot()
     
     frame_viz(frames, plt)
+=======
+
+    tags = get_top_tags(i_song, i_artist)
+    colors = client(i_song, i_artist)
+    print(colors)
+
+    # Remove backticks and clean the string
+    cleaned_colors = [color.strip('`') for color in colors]
+
+    # Convert to RGB correctly
+    rgb_colors = [
+        tuple(int(cleaned_color[i:i+2], 16) / 255 for i in (1, 3, 5))
+        for cleaned_color in cleaned_colors
+    ]
+
+    print(rgb_colors)
+
+    frame_viz(frames, rgb_colors)
+>>>>>>> 422631397da581b70082ffb415e46a3506a53077
     make_gif(img_dir, "backend/l1_img.gif", 10)     # 10 FPS - only change for debug
